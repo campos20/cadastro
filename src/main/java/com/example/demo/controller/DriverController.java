@@ -38,7 +38,7 @@ public class DriverController {
         return driverService.create(name, number, country);
     }*/
 
-    @GetMapping("/drivers/{number}/set-team")
+    @PutMapping("/drivers/{number}/set-team")
     @ApiOperation(value = "Adiciona equipe ao piloto especificado")
     public String setTeam(@PathVariable Integer number, String team) {
         return driverService.setTeam(number, team);

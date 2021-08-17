@@ -41,7 +41,7 @@ public class DriverService {
     }
 
     public String setTeam(Integer number, String team) {
-        String msg = "";
+        String msg = "Piloto não encontrado";
         for (DriverModel driver : drivers) {
             if (Objects.equals(driver.getNumber(), number)) {
                 if (Objects.equals(driver.getTeam(), null)) {
