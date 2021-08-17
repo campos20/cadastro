@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.DriverModel;
+import com.example.demo.request.DriverRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,11 +22,11 @@ public class DriverService {
         drivers.add(d2);
     }
 
-    /*public DriverModel create(String name, Integer number, String country) {
-        DriverModel created = new DriverModel(name, number, country);
+    public DriverModel create(DriverRequest driverRequest) {
+        DriverModel created = new DriverModel(driverRequest.getName(), driverRequest.getNumber(), driverRequest.getCountry());
         drivers.add(created);
         return created;
-    }*/
+    }
 
     public List<DriverModel> show() {
         return drivers;

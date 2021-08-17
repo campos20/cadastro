@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.DriverModel;
+import com.example.demo.request.DriverRequest;
 import com.example.demo.service.DriverService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,14 +30,12 @@ public class DriverController {
         return driverService.show(number);
     }
 
-    /*@PostMapping
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Cria um novo piloto")
-    public DriverModel create(@ApiParam("Nome") @RequestBody @NotBlank String name,
-                              @ApiParam("Número") @RequestBody @NotBlank Integer number,
-                              @ApiParam("Nacionalidade") @RequestBody @NotBlank String country) {
-        return driverService.create(name, number, country);
-    }*/
+    public DriverModel create(DriverRequest driverRequest) {
+        return driverService.create(driverRequest);
+    }
 
     @PutMapping("/drivers/{number}/set-team")
     @ApiOperation(value = "Adiciona equipe ao piloto especificado")
