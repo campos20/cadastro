@@ -23,9 +23,18 @@ public class DriverService {
     }
 
     public DriverModel create(DriverRequest driverRequest) {
-        DriverModel created = new DriverModel(driverRequest.getName(), driverRequest.getNumber(), driverRequest.getCountry());
-        drivers.add(created);
-        return created;
+        if (drivers.size() < 20) {
+            DriverModel created = new DriverModel(driverRequest.getName(), driverRequest.getNumber(), driverRequest.getCountry());
+            for (DriverModel driver : drivers) {
+                if (Objects.equals(driver.getNumber(), driverRequest.getNumber()) ||
+                Objects.equals(driver.getName(), driverRequest.getName())) {
+                    throw new NotFoundException();
+                }
+            }
+            drivers.add(created);
+            return created;
+        }
+        throw new NotFoundException();
     }
 
     public List<DriverModel> show() {

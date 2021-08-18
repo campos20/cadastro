@@ -1,9 +1,18 @@
 package com.example.demo.request;
 
+import lombok.*;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
+@Data
 public class DriverRequest {
-    String name;
-    Integer number;
-    String country;
+    @NotBlank(message = "Driver name cannot be null")
+    private String name;
+    @Min(0)
+    private Integer number;
+    @NotBlank(message = "Driver country cannot be null")
+    private String country;
 
     public DriverRequest(String name, Integer number, String country) {
         this.name = name;
@@ -11,27 +20,4 @@ public class DriverRequest {
         this.country = country;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }
