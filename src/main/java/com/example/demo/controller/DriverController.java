@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Driver;
 import com.example.demo.model.DriverModel;
 import com.example.demo.request.DriverRequest;
 import com.example.demo.service.DriverService;
@@ -33,7 +34,7 @@ public class DriverController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Cria um novo piloto")
-    public DriverModel create(@RequestBody @Valid DriverRequest driverRequest) {
+    public Driver create(@RequestBody @Valid DriverRequest driverRequest) {
         return driverService.create(driverRequest);
     }
 
