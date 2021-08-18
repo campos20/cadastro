@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Driver;
-import com.example.demo.model.DriverModel;
-import com.example.demo.request.DriverRequest;
 import com.example.demo.service.DriverService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +19,21 @@ public class DriverController {
 
     @GetMapping
     @ApiOperation(value = "Exibe a lista completa de pilotos")
-    public List<DriverModel> show() {
+    public List<Driver> show() {
         return driverService.show();
     }
 
     @GetMapping("/{number}")
     @ApiOperation(value = "Exibe informações de um piloto específico, pelo seu número")
-    public DriverModel show(@PathVariable Integer number) {
+    public Driver show(@PathVariable Integer number) {
         return driverService.show(number);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Cria um novo piloto")
-    public Driver create(@RequestBody @Valid DriverRequest driverRequest) {
-        return driverService.create(driverRequest);
+    public Driver create(@RequestBody @Valid Driver driver) {
+        return driverService.create(driver);
     }
 
     @PutMapping("{number}/set-team")

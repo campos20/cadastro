@@ -1,34 +1,29 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.NotFoundException;
-import com.example.demo.model.TeamModel;
+import com.example.demo.model.Team;
+import com.example.demo.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class TeamService {
 
-    private List<TeamModel> teams = new ArrayList<>();
+    @Autowired
+    private TeamRepository teamRepository;
 
-    public List<TeamModel> show() {
-        return teams;
+    private List<Team> teams = new ArrayList<>();
+
+    public List<Team> show() {
+        return teamRepository.findAll();
     }
 
-    public TeamModel create(TeamModel teamModel) {
-        if (teams.size() < 10) {
-            TeamModel created = new TeamModel(teamModel.getTeam());
-            for (TeamModel team : teams) {
-                if (Objects.equals(team.getTeam(), teamModel.getTeam())) {
-                    throw new NotFoundException();
-                }
-            }
-            teams.add(created);
-            return created;
-        }
-        throw new NotFoundException();
+    public Team create(Team team) {
+        Team created = new Team();
+        created.setTeam(team.getTeam());
+        return teamRepository.save(created);
     }
 
 }
