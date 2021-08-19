@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Team;
 import com.example.demo.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class TeamService {
     }
 
     public Team create(Team team) {
+        if (teamRepository.count() >= 10) {
+            throw new BadRequestException("Não é possível cadastrar mais do que 10 equipes");
+        }
         Team created = new Team();
         created.setTeam(team.getTeam());
         return teamRepository.save(created);

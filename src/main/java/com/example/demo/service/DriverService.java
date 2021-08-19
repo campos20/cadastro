@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Driver;
 import com.example.demo.repository.DriverRepository;
@@ -19,6 +20,9 @@ public class DriverService {
     private DriverRepository driverRepository;
 
     public Driver create(Driver driver) {
+        if (driverRepository.count() >= 20) {
+            throw new BadRequestException("Não é possível cadastrar mais do que 20 pilotos");
+        }
         Driver created = new Driver();
         created.setName(driver.getName());
         created.setCountry(driver.getCountry());
