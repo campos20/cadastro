@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Driver;
+import com.example.demo.request.DriverRequest;
 import com.example.demo.service.DriverService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class DriverController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Cria um novo piloto")
-    public Driver create(@RequestBody @Valid Driver driver) {
-        return driverService.create(driver);
+    public Driver create(@RequestBody @Valid DriverRequest driverRequest) {
+        return driverService.create(driverRequest);
     }
 
     @PutMapping("{number}/set-team")

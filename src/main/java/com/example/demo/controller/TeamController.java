@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Team;
+import com.example.demo.request.TeamRequest;
 import com.example.demo.service.TeamService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class TeamController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Cria uma nova equipe")
-    public Team create(@RequestBody Team team) {
-        return teamService.create(team);
+    public Team create(@RequestBody TeamRequest teamRequest) {
+        return teamService.create(teamRequest);
     }
 
 }

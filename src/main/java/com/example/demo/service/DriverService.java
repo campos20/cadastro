@@ -4,6 +4,7 @@ import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Driver;
 import com.example.demo.repository.DriverRepository;
+import com.example.demo.request.DriverRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,14 @@ public class DriverService {
     @Autowired
     private DriverRepository driverRepository;
 
-    public Driver create(Driver driver) {
+    public Driver create(DriverRequest driverRequest) {
         if (driverRepository.count() >= 20) {
             throw new BadRequestException("Não é possível cadastrar mais do que 20 pilotos");
         }
         Driver created = new Driver();
-        created.setName(driver.getName());
-        created.setCountry(driver.getCountry());
-        created.setNum(driver.getNum());
+        created.setName(driverRequest.getName());
+        created.setCountry(driverRequest.getCountry());
+        created.setNum(driverRequest.getNum());
         return driverRepository.save(created);
     }
 

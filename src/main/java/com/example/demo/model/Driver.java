@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Table(schema = "main", name = "driver")
+@Table(name = "driver")
 @Entity
 @Data
 public class Driver {
