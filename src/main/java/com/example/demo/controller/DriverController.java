@@ -19,27 +19,35 @@ public class DriverController {
     private DriverService driverService;
 
     @GetMapping
-    @ApiOperation(value = "Exibe a lista completa de pilotos")
+    @ApiOperation(value = "Show the list with all drivers")
     public List<Driver> show() {
         return driverService.show();
     }
 
     @GetMapping("/{number}")
-    @ApiOperation(value = "Exibe informações de um piloto específico, pelo seu número")
+    @ApiOperation(value = "Show a driver by his number")
     public Driver show(@PathVariable Integer number) {
         return driverService.show(number);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Cria um novo piloto")
+    @ApiOperation(value = "Create a new driver")
     public Driver create(@RequestBody @Valid DriverRequest driverRequest) {
         return driverService.create(driverRequest);
     }
 
-    @PutMapping("{number}/set-team")
-    @ApiOperation(value = "Adiciona equipe ao piloto especificado")
-    public String setTeam(@PathVariable Integer number, String team) {
-        return driverService.setTeam(number, team);
+    @DeleteMapping("/{number}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Delete a driver")
+    public void delete(@PathVariable Integer number) {
+        driverService.delete(number);
     }
+
+    @PutMapping
+    @ApiOperation(value = "Update a driver")
+    public Driver update(@RequestBody Driver driver) {
+        return driverService.update(driver);
+    }
+
 }

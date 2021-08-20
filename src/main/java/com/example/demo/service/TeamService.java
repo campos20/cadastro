@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Team;
 import com.example.demo.repository.TeamRepository;
 import com.example.demo.request.TeamRequest;
@@ -24,11 +25,25 @@ public class TeamService {
 
     public Team create(TeamRequest teamRequest) {
         if (teamRepository.count() >= 10) {
-            throw new BadRequestException("Não é possível cadastrar mais do que 10 equipes");
+            throw new BadRequestException("Impossible to create more than 10 teams");
         }
         Team created = new Team();
         created.setTeam(teamRequest.getTeam());
         return teamRepository.save(created);
     }
 
+    private Team validTeam(Integer number) {
+        Team team = teamRepository.findById(number).orElseThrow(() -> new NotFoundException());
+        return team;
+    }
+
+    public void delete(Integer number) {
+        Team team = validTeam(number);
+        teamRepository.delete(team);
+    }
+
+    public Team update(Team team) {
+        validTeam(team.getId());
+        return teamRepository.save(team);
+    }
 }

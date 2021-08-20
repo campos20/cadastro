@@ -22,7 +22,7 @@ public class DriverService {
 
     public Driver create(DriverRequest driverRequest) {
         if (driverRepository.count() >= 20) {
-            throw new BadRequestException("Não é possível cadastrar mais do que 20 pilotos");
+            throw new BadRequestException("Impossible to create more than 20 drivers");
         }
         Driver created = new Driver();
         created.setName(driverRequest.getName());
@@ -31,26 +31,32 @@ public class DriverService {
         return driverRepository.save(created);
     }
 
+    public Driver update(Driver driver) {
+        validDriver(driver.getId());
+        return driverRepository.save(driver);
+    }
+
     public List<Driver> show() {
         return driverRepository.findAll();
     }
 
     public Driver show(Integer number) {
+        /*for (Driver driver : drivers) {
+            if (Objects.equals(driver.getNum(), number)) {
+                return driver;
+            }
+        }*/
         return driverRepository.findById(number).orElseThrow(()-> new NotFoundException());
     }
 
-    public String setTeam(Integer number, String team) {
-        String msg = "Piloto não encontrado";
-        for (Driver driver : drivers) {
-            if (Objects.equals(driver.getNum(), number)) {
-                if (Objects.equals(driver.getTeam(), null)) {
-                    driver.setTeam(team);
-                    msg = "Equipe " + team + " adicionada com sucesso ao piloto " + driver.getName();
-                }
-                else msg = "Piloto já possui equipe";
-            }
-        }
-        return msg;
+    private Driver validDriver(Integer number) {
+        Driver driver = driverRepository.findById(number).orElseThrow(() -> new NotFoundException());
+        return driver;
+    }
+
+    public void delete(Integer number) {
+        Driver driver = validDriver(number);
+        driverRepository.delete(driver);
     }
 
 }

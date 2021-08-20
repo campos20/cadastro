@@ -18,16 +18,23 @@ public class TeamController {
     private TeamService teamService;
 
     @GetMapping
-    @ApiOperation(value = "Exibe a lista com todas as equipes")
+    @ApiOperation(value = "Show the list with all teams")
     public List<Team> show() {
         return teamService.show();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Cria uma nova equipe")
+    @ApiOperation(value = "Create a new team")
     public Team create(@RequestBody TeamRequest teamRequest) {
         return teamService.create(teamRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Delete a team, by it's id")
+    public void delete(@PathVariable Integer id) {
+        teamService.delete(id);
     }
 
 }

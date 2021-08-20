@@ -10,7 +10,7 @@ services:
       MYSQL_DATABASE: 'f1_manager'
     ports:
       - '3306:3306'
-    volumes:
-      - my-datavolume:/var/lib/mysql
-volumes:
-  my-datavolume:
+#    volumes:
+#      - my-datavolume:/var/lib/mysql
+# volumes:
+#  my-datavolume:

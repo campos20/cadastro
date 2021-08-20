@@ -1,3 +1,3 @@
-### Database
+### Local Database
 
-`docker run --rm -e POSTGRES_USER=username -e POSTGRES_PASSWORD=password -e POSTGRES_DB=f1_manager -p 5432:5432 postgres:12.3-alpine`
+`docker run --rm -e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_DATABASE=f1_manager -p 3305:3306 -v ${PWD}/src/main/resources/db/migration:/docker-entrypoint-initdb.d mysql:8.0.26`
