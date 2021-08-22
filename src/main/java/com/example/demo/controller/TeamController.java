@@ -37,4 +37,10 @@ public class TeamController {
         teamService.delete(id);
     }
 
+    @PutMapping
+    @ApiOperation(value = "Update a team")
+    public Team update(@RequestBody Team team) {
+        return teamService.update(team);
+    }
+
 }

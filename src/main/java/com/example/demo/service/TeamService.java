@@ -8,16 +8,14 @@ import com.example.demo.request.TeamRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TeamService {
 
     @Autowired
     private TeamRepository teamRepository;
-
-    private List<Team> teams = new ArrayList<>();
 
     public List<Team> show() {
         return teamRepository.findAll();
@@ -27,9 +25,18 @@ public class TeamService {
         if (teamRepository.count() >= 10) {
             throw new BadRequestException("Impossible to create more than 10 teams");
         }
+        boolean condition = true;
+        String msg = "";
         Team created = new Team();
         created.setTeam(teamRequest.getTeam());
-        return teamRepository.save(created);
+        for (Team team : teamRepository.findAll()) {
+            if (Objects.equals(team.getTeam(), created.getTeam())) {
+                condition = false;
+                msg = "There's already a team with this name";
+            }
+        }
+        if (condition) return teamRepository.save(created);
+        throw new BadRequestException(msg);
     }
 
     private Team validTeam(Integer number) {

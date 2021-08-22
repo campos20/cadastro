@@ -45,9 +45,9 @@ public class DriverController {
     }
 
     @PutMapping
-    @ApiOperation(value = "Update a driver")
-    public Driver update(@RequestBody Driver driver) {
-        return driverService.update(driver);
+    @ApiOperation(value = "Adding a team to a driver")
+    public Driver setTeam(Integer number, String team) {
+        return driverService.setTeam(number, team);
     }
 
 }
