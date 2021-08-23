@@ -26,11 +26,14 @@ public class DriverService {
         if (driverRepository.count() >= 20) {
             throw new BadRequestException("Impossible to create more than 20 drivers");
         }
-        boolean condition = true;
+        if (driverRepository.existsByName(driverRequest.getName())) {
+            throw new BadRequestException("There's already a driver with this name");
+        }
+        /*boolean condition = true;
         String msg = "";
         Driver created = new Driver();
         created.setName(driverRequest.getName());
-        for (Driver driver : driverRepository.findAll()) {
+        /*for (Driver driver : driverRepository.findAll()) {
             if (Objects.equals(driver.getName(), created.getName())) {
                 condition = false;
                 msg = "There's already a driver with this name";
@@ -45,7 +48,8 @@ public class DriverService {
             }
         }
         if (condition) return driverRepository.save(created);
-        throw new BadRequestException(msg);
+        throw new BadRequestException(msg);*/
+        return null;
     }
 
     public List<Driver> show() {
