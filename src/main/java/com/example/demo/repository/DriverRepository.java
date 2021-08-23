@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface DriverRepository extends JpaRepository<Driver, Integer> {
 
     boolean existsByName(String name);
+    boolean existsByNum(Integer num);
 }

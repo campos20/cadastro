@@ -8,6 +8,8 @@ import com.example.demo.repository.DriverRepository;
 import com.example.demo.repository.TeamRepository;
 import com.example.demo.request.DriverRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,31 +31,16 @@ public class DriverService {
         if (driverRepository.existsByName(driverRequest.getName())) {
             throw new BadRequestException("There's already a driver with this name");
         }
-        /*boolean condition = true;
-        String msg = "";
+        if (driverRepository.existsByNum(driverRequest.getNum())) {
+            throw new BadRequestException("There's already a driver with this number");
+        }
         Driver created = new Driver();
-        created.setName(driverRequest.getName());
-        /*for (Driver driver : driverRepository.findAll()) {
-            if (Objects.equals(driver.getName(), created.getName())) {
-                condition = false;
-                msg = "There's already a driver with this name";
-            }
-        }
-        created.setCountry(driverRequest.getCountry());
-        created.setNum(driverRequest.getNum());
-        for (Driver driver : driverRepository.findAll()) {
-            if (Objects.equals(driver.getNum(), created.getNum())) {
-                condition = false;
-                msg = "There's already a driver with this number";
-            }
-        }
-        if (condition) return driverRepository.save(created);
-        throw new BadRequestException(msg);*/
-        return null;
+        return driverRepository.save(created);
     }
 
-    public List<Driver> show() {
-        return driverRepository.findAll();
+    public Page<Driver> findAll(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return driverRepository.findAll(pageRequest);
     }
 
     public Driver show(Integer number) {

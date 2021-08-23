@@ -5,7 +5,10 @@ import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.Team;
 import com.example.demo.repository.TeamRepository;
 import com.example.demo.request.TeamRequest;
+import com.sun.xml.bind.v2.runtime.reflect.Lister;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,9 @@ public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public List<Team> show() {
-        return teamRepository.findAll();
+    public Page<Team> findAll(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return teamRepository.findAll(pageRequest);
     }
 
     public Team create(TeamRequest teamRequest) {
