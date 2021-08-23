@@ -62,7 +62,7 @@ public class DriverService {
                 return driver;
             }
         }
-        throw new NotFoundException();
+        throw new NotFoundException("There's no driver with this number");
     }
 
     public void delete(Integer number) {

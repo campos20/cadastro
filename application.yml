@@ -1,0 +1,5 @@
+server:
+  error:
+    include-message: always
+    include-binding-erros: always
+    include-stacktrace: on_param

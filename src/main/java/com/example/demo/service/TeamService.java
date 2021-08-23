@@ -40,8 +40,7 @@ public class TeamService {
     }
 
     private Team validTeam(Integer number) {
-        Team team = teamRepository.findById(number).orElseThrow(() -> new NotFoundException());
-        return team;
+        return teamRepository.findById(number).orElseThrow(() -> new NotFoundException("There's no team with this id"));
     }
 
     public void delete(Integer number) {
